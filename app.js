@@ -45,5 +45,12 @@ function checkPassword(req, res) {
 }
 
 function showProfile(req, res) {
+	/*
+	if (user.loggedIn) {
+		render profile.html
+	} else {
+		redirect user to the login page
+	}
+	*/
 	res.render('profile.html')
 }
