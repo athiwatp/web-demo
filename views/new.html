@@ -1,4 +1,9 @@
 <% include header.html %>
+<style>
+	form * {
+		margin-bottom: 6px;
+	}
+</style>
 
 <div class="container">
 	<h1>New Topic</h1>
@@ -11,7 +16,9 @@
 			class='form-control'
 			placeholder='Detail'
 			rows='8'></textarea>
-		<input type='file' name='photo'>
+		<input type='file' name='photo'
+			class='btn btn-outline-primary'>
+		<br>
 		<button type='submit' 
 			class='btn btn-primary'>Post</button>
 	</form>

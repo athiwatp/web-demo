@@ -18,6 +18,7 @@ app.post('/login', upload.single(), checkPassword)
 app.get('/profile', showProfile)
 app.get('/logout', userLogOut)
 app.get('/new', showNew)
+app.post('/new', upload.single('photo'), postTopic)
 app.use(express.static('public'))
 
 function showRegister(req, res) {
@@ -72,6 +73,15 @@ function showNew(req, res) {
 	}
 	if (valid[card]) {
 		res.render('new.html')
+	} else {
+		res.redirect('/login')
+	}
+}
+
+function postTopic(req, res) {
+	if (valid[req.cookies.card]) {
+		console.log(req.body)
+		res.redirect('/profile')
 	} else {
 		res.redirect('/login')
 	}
