@@ -1,0 +1,20 @@
+<% include header.html %>
+
+<div class="container">
+	<h1>New Topic</h1>
+	<form method='post' enctype="multipart/form-data">
+		<input name='title'
+			class='form-control'
+			autofocus
+			placeholder='Title'>
+		<textarea name='detail'
+			class='form-control'
+			placeholder='Detail'
+			rows='8'></textarea>
+		<input type='file' name='photo'>
+		<button type='submit' 
+			class='btn btn-primary'>Post</button>
+	</form>
+</div>
+
+<% include footer.html %>

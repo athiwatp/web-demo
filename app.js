@@ -17,6 +17,7 @@ app.get('/login', showLogin)
 app.post('/login', upload.single(), checkPassword)
 app.get('/profile', showProfile)
 app.get('/logout', userLogOut)
+app.get('/new', showNew)
 app.use(express.static('public'))
 
 function showRegister(req, res) {
@@ -62,4 +63,16 @@ function showProfile(req, res) {
 function userLogOut(req, res) {
 	delete valid[req.cookies.card]
 	res.redirect('/')
+}
+
+function showNew(req, res) {
+	var card = null
+	if (req.cookies && req.cookies.card) {
+		card = req.cookies.card
+	}
+	if (valid[card]) {
+		res.render('new.html')
+	} else {
+		res.redirect('/login')
+	}
 }
