@@ -4,6 +4,8 @@ var ejs = require('ejs')
 var multer = require('multer')
 var upload = multer( { dest: 'uploads/'} )
 var mongo = require('mongodb')
+var valid = [ ]
+
 app.listen(2000)
 app.engine('html', ejs.renderFile)
 
@@ -37,8 +39,13 @@ function showLogin(req, res) {
 	res.render('login.html')
 }
 function checkPassword(req, res) {
-	console.log(req.body)
-	res.redirect("/login")
+	if (req.body.email == 'mark@facebook.com' && 
+		req.body.password == 'mark123') {
+		var number = "12345-67890"
+		valid[number] = req.body;
+		res.set('Set-Cookie', 'card=' + number)
+		res.redirect('/profile')
+	}
 }
 
 function showProfile(req, res) {
