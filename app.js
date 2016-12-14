@@ -4,11 +4,12 @@ var ejs = require('ejs')
 var multer = require('multer')
 var upload = multer( { dest: 'uploads/'} )
 var mongo = require('mongodb')
+var cookie = require('cookie-parser')
 var valid = [ ]
 
 app.listen(2000)
 app.engine('html', ejs.renderFile)
-
+app.use(cookie())
 app.get('/', showIndex)
 app.get('/register', showRegister)
 app.post('/register', upload.single(), saveNewUser)
@@ -49,12 +50,6 @@ function checkPassword(req, res) {
 }
 
 function showProfile(req, res) {
-	/*
-	if (user.loggedIn) {
-		render profile.html
-	} else {
-		redirect user to the login page
-	}
-	*/
+	console.log(req.cookies)
 	res.render('profile.html')
 }
