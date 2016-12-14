@@ -5,6 +5,7 @@ var multer = require('multer')
 var upload = multer( { dest: 'uploads/'} )
 var mongo = require('mongodb')
 var cookie = require('cookie-parser')
+var fs = require('fs')
 var valid = [ ]
 
 app.listen(2000)
@@ -80,7 +81,12 @@ function showNew(req, res) {
 
 function postTopic(req, res) {
 	if (valid[req.cookies.card]) {
-		console.log(req.body)
+		if (req.file && req.file.mimetype == 'image/jpeg') {
+			fs.rename(req.file.path, req.file.path + '.jpg')
+		}
+		if (req.file && req.file.mimetype == 'image/png') {
+			fs.rename(req.file.path, req.file.path + '.png')
+		}
 		res.redirect('/profile')
 	} else {
 		res.redirect('/login')
