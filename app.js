@@ -6,6 +6,7 @@ app.engine('html', ejs.renderFile)
 
 app.get('/', showIndex)
 app.get('/register', showRegister)
+app.post('/register', saveNewUser)
 app.get('/login', showLogin)
 app.post('/login', checkPassword)
 app.get('/profile', showProfile)
@@ -13,6 +14,10 @@ app.use(express.static('public'))
 
 function showRegister(req, res) {
 	res.render('register.html')
+}
+
+function saveNewUser(req, res) {
+	
 }
 
 function showIndex(req, res) {
