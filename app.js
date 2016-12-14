@@ -8,6 +8,8 @@ app.get('/', showIndex)
 app.get('/login', showLogin)
 app.post('/login', checkPassword)
 app.get('/profile', showProfile)
+app.use(express.static('public'))
+
 
 function showIndex(req, res) {
 	res.render('index.html')
