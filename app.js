@@ -3,6 +3,7 @@ var app = express()
 var ejs = require('ejs')
 var multer = require('multer')
 var upload = multer( { dest: 'uploads/'} )
+var mongo = require('mongodb')
 app.listen(2000)
 app.engine('html', ejs.renderFile)
 
@@ -19,7 +20,12 @@ function showRegister(req, res) {
 }
 
 function saveNewUser(req, res) {
-	console.log(req.body)
+	/*
+	mongo.MongoClient.connect('mongodb://icode.run/system1', (error, db) => {
+		db.collection('user').insert(req.body)
+		res.redirect("/login")
+	})
+	*/
 	res.redirect("/login")
 }
 
