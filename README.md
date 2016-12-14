@@ -4,7 +4,7 @@
 ```
 git clone https://github.com/codestar-work/web-demo
 cd web-demo
-npm install express ejs
+npm install express ejs multer mongodb
 node app.js
 ```
 จากนั้น เปิด browser ไปที่ localhost:2000

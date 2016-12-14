@@ -1,12 +1,14 @@
 var express = require('express')
 var app = express()
 var ejs = require('ejs')
+var multer = require('multer')
+var upload = multer( { dest: 'uploads/'} )
 app.listen(2000)
 app.engine('html', ejs.renderFile)
 
 app.get('/', showIndex)
 app.get('/register', showRegister)
-app.post('/register', saveNewUser)
+app.post('/register', upload.single(), saveNewUser)
 app.get('/login', showLogin)
 app.post('/login', checkPassword)
 app.get('/profile', showProfile)
@@ -17,7 +19,8 @@ function showRegister(req, res) {
 }
 
 function saveNewUser(req, res) {
-	
+	console.log(req.body)
+	res.redirect("/login")
 }
 
 function showIndex(req, res) {
