@@ -16,6 +16,7 @@ app.post('/register', upload.single(), saveNewUser)
 app.get('/login', showLogin)
 app.post('/login', upload.single(), checkPassword)
 app.get('/profile', showProfile)
+app.get('/logout', userLogOut)
 app.use(express.static('public'))
 
 function showRegister(req, res) {
@@ -56,4 +57,9 @@ function showProfile(req, res) {
 	} else {
 		res.redirect('/login')
 	}
+}
+
+function userLogOut(req, res) {
+	delete valid[req.cookies.card]
+	res.redirect('/')
 }
