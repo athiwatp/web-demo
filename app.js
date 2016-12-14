@@ -50,6 +50,10 @@ function checkPassword(req, res) {
 }
 
 function showProfile(req, res) {
-	console.log(req.cookies)
-	res.render('profile.html')
+	var card = req.cookies.card
+	if (valid[card]) {
+		res.render('profile.html')
+	} else {
+		res.redirect('/login')
+	}
 }
