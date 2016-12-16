@@ -29,6 +29,7 @@ app.get('/profile', showProfile)
 app.get('/logout', userLogOut)
 app.get('/new', showNew)
 app.post('/new', upload.single('photo'), postTopic)
+app.get('/show', showAll)
 app.use(express.static('public'))
 
 function showRegister(req, res) {
@@ -126,4 +127,10 @@ function postTopic(req, res) {
 	} else {
 		res.redirect('/login')
 	}
+}
+
+function showAll(req, res) {
+	pool.query('select * from topic', (error, data) => {
+		res.render('show.html', {topic: data})
+	})
 }
