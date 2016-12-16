@@ -30,6 +30,7 @@ app.get('/logout', userLogOut)
 app.get('/new', showNew)
 app.post('/new', upload.single('photo'), postTopic)
 app.get('/show', showAll)
+app.get('/toggle', toggle)
 app.use(express.static('public'))
 app.use('/uploads', express.static('uploads'))
 
@@ -137,7 +138,24 @@ function postTopic(req, res) {
 }
 
 function showAll(req, res) {
-	pool.query('select * from topic', (error, data) => {
+	pool.query("select * from topic where active='Y'", 
+		(error, data) => {
 		res.render('show.html', {topic: data})
 	})
+}
+
+function toggle(req, res) {
+	if (req.cookies == null ||
+		valid[req.cookies.card] == null) { 
+		res.redirect('/') 
+		return;
+	}
+	var user  = valid[req.cookies.card].id
+	var topic = req.query.id
+	pool.query(`update topic set active='N'
+		where id=? and owner=?`,
+		[topic, user],
+		(error, data) => {
+			res.redirect("/profile")
+		})
 }
