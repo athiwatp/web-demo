@@ -8,6 +8,8 @@ create table member(
 	password varchar(255),
 	name     varchar(255)
 );
+alter table member add primary key(email);
+
 insert into member(email, password, name)
 values('mark@facebook.com', sha2('mark123', 512), 
 	'Mark Zuckerberg');

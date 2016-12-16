@@ -6,6 +6,14 @@ var upload = multer( { dest: 'uploads/'} )
 var mongo = require('mongodb')
 var cookie = require('cookie-parser')
 var fs = require('fs')
+var mysql = require('mysql')
+var db = {
+	host: '130.211.137.81',
+	user: 'web',
+	password: 'web123',
+	database: 'web'
+}
+var pool = mysql.createPool(db)
 var valid = [ ]
 
 app.listen(2000)
@@ -27,13 +35,16 @@ function showRegister(req, res) {
 }
 
 function saveNewUser(req, res) {
-	/*
-	mongo.MongoClient.connect('mongodb://icode.run/system1', (error, db) => {
-		db.collection('user').insert(req.body)
-		res.redirect("/login")
-	})
-	*/
-	res.redirect("/login")
+	// req.body.email
+	// req.body.password,
+	// req.body.name
+	pool.query(`insert into member (email, password, name)
+		values(?, sha2(?, 512), ?)`,
+		[req.body.email, req.body.password, req.body.name],
+		(error, data) => {
+			res.redirect("/login")
+		}
+	)
 }
 
 function showIndex(req, res) {
