@@ -1,8 +1,29 @@
 <% include header.html %>
-
-<% for (var t of topic) { %>
-	<%= t.title %><br>
-<% } %>
-
+<style>
+	body {
+		background: #eee;
+	}
+	.block {
+		background: white;
+		border-radius: 6px;
+		padding: 10px;
+		margin-top: 10px;
+	}
+</style>
+<div class='container'>
+	<div class='row'>
+		<% for (var t of topic) { %>
+		<div class='col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3'>
+			<div class='block'>
+				<h4><%= t.title %></h4>
+				<p><%= t.detail %></p>
+				<% if (t.photo) { %>
+					<img source='<%= t.photo %>' >
+				<% } %>
+			</div>
+		</div>
+		<% } %>
+	</div>
+</div>
 
 <% include footer.html %>
