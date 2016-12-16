@@ -73,7 +73,13 @@ function checkPassword(req, res) {
 function showProfile(req, res) {
 	var card = req.cookies.card
 	if (valid[card]) {
-		res.render('profile.html', {user: valid[card]} )
+		pool.query('select * from topic where owner=?', 
+		[valid[card].id],
+		(error, data) => {
+			res.render('profile.html', {
+				user: valid[card], 
+				topic: data})
+		})
 	} else {
 		res.redirect('/login')
 	}

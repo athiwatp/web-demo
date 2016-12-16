@@ -20,3 +20,5 @@ create table topic(
 	detail   varchar(8191),
 	photo    varchar(255)
 );
+
+alter table topic add active char default 'Y';
