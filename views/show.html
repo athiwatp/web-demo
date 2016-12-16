@@ -9,6 +9,9 @@
 		padding: 10px;
 		margin-top: 10px;
 	}
+	img {
+		width: 100%;
+	}
 </style>
 <div class='container'>
 	<div class='row'>
@@ -18,7 +21,7 @@
 				<h4><%= t.title %></h4>
 				<p><%= t.detail %></p>
 				<% if (t.photo) { %>
-					<img source='<%= t.photo %>' >
+					<img src='/<%= t.photo %>' >
 				<% } %>
 			</div>
 		</div>

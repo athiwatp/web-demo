@@ -31,6 +31,7 @@ app.get('/new', showNew)
 app.post('/new', upload.single('photo'), postTopic)
 app.get('/show', showAll)
 app.use(express.static('public'))
+app.use('/uploads', express.static('uploads'))
 
 function showRegister(req, res) {
 	res.render('register.html')
