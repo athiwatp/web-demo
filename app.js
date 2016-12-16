@@ -59,7 +59,7 @@ function checkPassword(req, res) {
 		(error, data) => {
 			if (data.length == 1) {
 				var number = uuid.v4()
-				valid[number] = req.body;
+				valid[number] = data[0];
 				res.set('Set-Cookie', 'card=' + number)
 				res.redirect('/profile')
 			} else {
@@ -71,7 +71,7 @@ function checkPassword(req, res) {
 function showProfile(req, res) {
 	var card = req.cookies.card
 	if (valid[card]) {
-		res.render('profile.html')
+		res.render('profile.html', {user: valid[card]} )
 	} else {
 		res.redirect('/login')
 	}
