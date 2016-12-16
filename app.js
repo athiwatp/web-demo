@@ -35,9 +35,6 @@ function showRegister(req, res) {
 }
 
 function saveNewUser(req, res) {
-	// req.body.email
-	// req.body.password,
-	// req.body.name
 	pool.query(`insert into member (email, password, name)
 		values(?, sha2(?, 512), ?)`,
 		[req.body.email, req.body.password, req.body.name],
@@ -55,13 +52,19 @@ function showLogin(req, res) {
 	res.render('login.html')
 }
 function checkPassword(req, res) {
-	if (req.body.email == 'mark@facebook.com' && 
-		req.body.password == 'mark123') {
-		var number = "12345-67890"
-		valid[number] = req.body;
-		res.set('Set-Cookie', 'card=' + number)
-		res.redirect('/profile')
-	}
+	pool.query(`select * from member where email=? and 
+		password=sha2(?, 512)`,
+		[req.body.email, req.body.password],
+		(error, data) => {
+			if (data.length == 1) {
+				var number = "12345-67890"
+				valid[number] = req.body;
+				res.set('Set-Cookie', 'card=' + number)
+				res.redirect('/profile')
+			} else {
+				res.redirect('/login?message=Invalid Email or Password')
+			}
+		})
 }
 
 function showProfile(req, res) {
