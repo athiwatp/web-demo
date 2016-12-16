@@ -15,6 +15,7 @@ var db = {
 }
 var pool = mysql.createPool(db)
 var valid = [ ]
+var uuid = require('uuid')
 
 app.listen(2000)
 app.engine('html', ejs.renderFile)
@@ -57,7 +58,7 @@ function checkPassword(req, res) {
 		[req.body.email, req.body.password],
 		(error, data) => {
 			if (data.length == 1) {
-				var number = "12345-67890"
+				var number = uuid.v4()
 				valid[number] = req.body;
 				res.set('Set-Cookie', 'card=' + number)
 				res.redirect('/profile')
