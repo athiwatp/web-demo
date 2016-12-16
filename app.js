@@ -96,13 +96,33 @@ function showNew(req, res) {
 
 function postTopic(req, res) {
 	if (valid[req.cookies.card]) {
+		var fileName = ''
 		if (req.file && req.file.mimetype == 'image/jpeg') {
-			fs.rename(req.file.path, req.file.path + '.jpg')
+			fileName = req.file.path + '.jpg'
+			fs.rename(req.file.path, fileName)
 		}
 		if (req.file && req.file.mimetype == 'image/png') {
-			fs.rename(req.file.path, req.file.path + '.png')
+			fileName = req.file.path + '.png'
+			fs.rename(req.file.path, fileName)
 		}
-		res.redirect('/profile')
+		var owner = valid[req.cookies.card].id
+		if (req.file) {
+			pool.query(`insert into topic(title, detail, photo, owner)
+				values(?, ?, ?, ?)`, 
+				[req.body.title, req.body.detail, fileName, owner],
+				(error, result) => {
+					res.redirect('/profile')
+				}
+			)
+		} else {
+			pool.query(`insert into topic(title, detail, owner)
+				values(?, ?, ?)`, 
+				[req.body.title, req.body.detail, owner],
+				(error, result) => {
+					res.redirect('/profile')
+				}
+			)
+		}
 	} else {
 		res.redirect('/login')
 	}

@@ -15,6 +15,7 @@ values('mark@facebook.com', sha2('mark123', 512),
 	'Mark Zuckerberg');
 create table topic(
 	id       serial,
+	owner    bigint,
 	title    varchar(1023),
 	detail   varchar(8191),
 	photo    varchar(255)
